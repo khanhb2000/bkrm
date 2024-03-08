@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { UserState, LoginState, LoginPermissionState } from '../../app/type.d';
+import { LoginState  } from '../../app/type.d';
 import { RootState } from '../../app/store';
 /*
 const initialState:UserState = {
@@ -16,12 +16,12 @@ const initialState: LoginState = {
   "token": undefined,
   "customerInformation": null,
   "userInformation": null,
-  "role": {
+  "role": null/*{
     "id": "",
     "normalizedName": "",
     "isManager": true,
     "roleClaims": [],
-  },
+  }*/,
   "permission": undefined,
   "errorServer": ""
 };
@@ -75,12 +75,12 @@ export const loginSlice = createSlice({
       state.message = action.payload.message;
       state.customerInformation = action.payload.customerInformation;
       state.userInformation = action.payload.userInformation;
-      state.role = (action.payload.userInformation) ? action.payload.userInformation.roles[0] : {
+      state.role = (action.payload.userInformation) ? action.payload.userInformation.roles[0] : null/*{
         "id": "0",
         "normalizedName": "Customer",
         "isManager": false,
         "users": null,
-      };
+      }*/;
       state.permission = action.payload.userInformation?.permission;
     });
 

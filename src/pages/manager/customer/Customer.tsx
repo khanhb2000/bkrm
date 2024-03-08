@@ -13,81 +13,76 @@ import { ReactComponent as IconBaocao } from '../../../icon/menu-baocao.svg'
 import { ReactComponent as IconLogout } from '../../../icon/logout.svg'
 
 import { Account } from '../../component/account';
-import  NavBar  from '../../component/menubar';
+import NavBar from '../../component/menubar';
 import { FilterBox } from '../../component/filterBox';
 
 import { Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import ProductInformationPopupScreen from '../../component/popupEditProduct';
+import CustomerInformationPopupScreen from '../../component/popupEditCustomer';
 
 interface DataType {
   key: React.Key;
-  productId: string;
-  productName: string;
-  giavon: string;
-  giaban: string;
-  slnhap: number;
-  tonkho: number;
+  cusId: string;
+  cusName: string;
+  phone: string;
+  gender: string;
+  email: string;
+  tongchitieu: string;
 }
-const emptydata:DataType ={
+const emptydata: DataType = {
   key: "",
-  productId: "",
-  productName: "",
-  giavon: "",
-  giaban: "",
-  slnhap: 0,
-  tonkho: 0,
+  cusId: "",
+  cusName: "",
+  phone: "",
+  gender: "",
+  email: "",
+  tongchitieu: "",
 }
-let dataShow:DataType=emptydata;
+let dataShow: DataType = emptydata;
 
-
+const gen = ['Nam', 'Nữ']
 const data: DataType[] = [];
-for (let i = 0; i < 46; i++) {
+for (let i = 0; i < 30; i++) {
   data.push({
     key: i,
-    productId: String(i),
-    productName: "Sản phẩm "+i,
-    giavon: '100.000',
-    giaban: '500.000',
-    slnhap: 50,
-    tonkho: 20,
+    cusId: String(i),
+    cusName: "Khách hàng " + i,
+    phone: '08 00 000 0' + i,
+    gender: gen[Math.floor(Math.random() * 2)],
+    email: "customer" + i + "@mail.com",
+    tongchitieu: String(Math.floor(Math.random() * 500000) * 1000),
   });
 }
-
 export default function Customer() {
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Mã sản phẩm',
-      dataIndex: 'productId',
+      title: 'Mã khách hàng',
+      dataIndex: 'cusId',
     },
     {
-      title: 'Tên hàng',
-      dataIndex: 'productName',
+      title: 'Họ và tên',
+      dataIndex: 'cusName',
     },
     {
-      title: 'Giá vốn',
-      dataIndex: 'giavon',
+      title: 'Số điện thoại',
+      dataIndex: 'phone',
     },
     {
-      title: 'Giá bán',
-      dataIndex: 'giaban',
+      title: 'Giới tính',
+      dataIndex: 'gender',
     },
     {
-      title: 'SL nhập',
-      dataIndex: 'slnhap',
-    },
-    {
-      title: 'Tồn kho',
-      dataIndex: 'tonkho',
+      title: 'Tổng chi tiêu',
+      dataIndex: 'tongchitieu',
     },
     {
       title: '',
       key: 'action',
       width: '112px',
       render: (_, record) => (
-              <Button size={"middle"} onClick={() => {dataShow=data[Number(record.productId)];setIsChangeInformation(!isChangeInformation)}}>Sửa</Button>
+        <Button size={"middle"} onClick={() => { dataShow = data[Number(record.cusId)]; setIsChangeInformation(!isChangeInformation) }}>Sửa</Button>
       ),
-  },
+    },
   ];
 
   useEffect(() => {
@@ -122,21 +117,29 @@ export default function Customer() {
 
   return (
     <div className='dashboard-container'>
-      <ProductInformationPopupScreen
-                    isPopup={isChangeInformation}
-                    setPopup={setIsChangeInformation}
-                    data={dataShow}
-                    componentDisabled={componentDisabled}
-                    setComponentDisabled={setComponentDisabled}
-                />
-      <div className='product-container'>
-      <div className='filterField'>
-        Lọc danh sách
+      <CustomerInformationPopupScreen
+        isPopup={isChangeInformation}
+        setPopup={setIsChangeInformation}
+        data={dataShow}
+        componentDisabled={componentDisabled}
+        setComponentDisabled={setComponentDisabled}
+      />
+       <div className='product-container'>
+        <div className='filterField'>
+          <FilterBox title={"Chi nhánh"} type={"store"} />
+          <FilterBox title={"Giới tính"} type={"gender"} />
+          <FilterBox title={"Chức danh"} type={"role"} />
+        </div>
+        <div className='product-list'>
+          <Button type='primary' onClick={() => { dataShow = emptydata; setIsChangeInformation(!isChangeInformation) }} style={{ backgroundColor: "#465d65" }}>Thêm mới</Button>
+          <div style={{ marginBottom: 16 }}>
+            <span style={{ marginLeft: 8 }}>
+              {hasSelected ? `Đã chọn ${selectedRowKeys.length} nhân viên` : ''}
+            </span>
+          </div>
+          <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+        </div>
       </div>
-      <div className='product-list'>
-        Nội dung Khách hàng
-            </div>
-    </div>
     </div>
   );
 
