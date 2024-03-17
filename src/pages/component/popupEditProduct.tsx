@@ -12,8 +12,8 @@ import { useParams } from "react-router-dom";
 
 interface DataType {
     key: React.Key;
-    productId: string;
-    productName: string;
+    Id: string;
+    name: string;
     giavon: string;
     giaban: string;
     slnhap: number;
@@ -72,7 +72,7 @@ export default function ProductInformationPopupScreen({ isPopup, setPopup, data,
                             label="Tên"
                             name="name"
                             rules={[{ required: true, message: 'Please input your name!' }]}
-                            initialValue={data?.productName}
+                            initialValue={data?.name}
                         >
                             <Input />
                         </Form.Item>

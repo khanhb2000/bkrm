@@ -22,8 +22,8 @@ import ProductInformationPopupScreen from '../../component/popupEditProduct';
 
 interface DataType {
   key: React.Key;
-  productId: string;
-  productName: string;
+  Id: string;
+  name: string;
   giavon: string;
   giaban: string;
   slnhap: number;
@@ -31,8 +31,8 @@ interface DataType {
 }
 const emptydata:DataType ={
   key: "",
-  productId: "",
-  productName: "",
+  Id: "",
+  name: "",
   giavon: "",
   giaban: "",
   slnhap: 0,
@@ -45,8 +45,8 @@ const data: DataType[] = [];
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
-    productId: String(i),
-    productName: "Sản phẩm "+i,
+    Id: String(i),
+    name: "Sản phẩm "+i,
     giavon: '100.000',
     giaban: '500.000',
     slnhap: 50,
@@ -58,11 +58,11 @@ export default function Promotion() {
   const columns: ColumnsType<DataType> = [
     {
       title: 'Mã sản phẩm',
-      dataIndex: 'productId',
+      dataIndex: 'Id',
     },
     {
       title: 'Tên hàng',
-      dataIndex: 'productName',
+      dataIndex: 'name',
     },
     {
       title: 'Giá vốn',
@@ -85,7 +85,7 @@ export default function Promotion() {
       key: 'action',
       width: '112px',
       render: (_, record) => (
-              <Button size={"middle"} onClick={() => {dataShow=data[Number(record.productId)];setIsChangeInformation(!isChangeInformation)}}>Sửa</Button>
+              <Button size={"middle"} onClick={() => {dataShow=data[Number(record.Id)];setIsChangeInformation(!isChangeInformation)}}>Sửa</Button>
       ),
   },
   ];

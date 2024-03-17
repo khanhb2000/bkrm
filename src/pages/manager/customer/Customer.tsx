@@ -21,6 +21,7 @@ import type { ColumnsType } from 'antd/es/table';
 import CustomerInformationPopupScreen from '../../component/popupEditCustomer';
 
 interface DataType {
+  Id: string;
   key: React.Key;
   cusId: string;
   cusName: string;
@@ -30,6 +31,7 @@ interface DataType {
   tongchitieu: string;
 }
 const emptydata: DataType = {
+  Id: "",
   key: "",
   cusId: "",
   cusName: "",
@@ -44,6 +46,7 @@ const gen = ['Nam', 'Nữ']
 const data: DataType[] = [];
 for (let i = 0; i < 30; i++) {
   data.push({
+    Id:i.toString(),
     key: i,
     cusId: String(i),
     cusName: "Khách hàng " + i,

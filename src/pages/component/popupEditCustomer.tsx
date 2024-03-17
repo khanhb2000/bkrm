@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 
 interface DataType {
     key: React.Key;
-    cusId: string;
+    Id: string;
     cusName: string;
     phone: string;
     gender: string;

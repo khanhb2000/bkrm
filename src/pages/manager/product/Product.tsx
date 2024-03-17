@@ -19,11 +19,12 @@ import { FilterBox } from '../../component/filterBox';
 import { Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import ProductInformationPopupScreen from '../../component/popupEditProduct';
+import axios from 'axios';
 
 interface DataType {
   key: React.Key;
-  productId: string;
-  productName: string;
+  Id: string;
+  name: string;
   giavon: string;
   giaban: string;
   slnhap: number;
@@ -31,8 +32,8 @@ interface DataType {
 }
 const emptydata:DataType ={
   key: "",
-  productId: "",
-  productName: "",
+  Id: "",
+  name: "",
   giavon: "",
   giaban: "",
   slnhap: 0,
@@ -45,8 +46,8 @@ const data: DataType[] = [];
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
-    productId: String(i),
-    productName: "Sản phẩm "+i,
+    Id: String(i),
+    name: "Sản phẩm "+i,
     giavon: '100.000',
     giaban: '500.000',
     slnhap: 50,
@@ -58,11 +59,11 @@ export default function Product() {
   const columns: ColumnsType<DataType> = [
     {
       title: 'Mã sản phẩm',
-      dataIndex: 'productId',
+      dataIndex: 'Id',
     },
     {
       title: 'Tên hàng',
-      dataIndex: 'productName',
+      dataIndex: 'name',
     },
     {
       title: 'Giá vốn',
@@ -85,14 +86,29 @@ export default function Product() {
       key: 'action',
       width: '112px',
       render: (_, record) => (
-              <Button size={"middle"} onClick={() => {dataShow=data[Number(record.productId)];setIsChangeInformation(!isChangeInformation)}}>Sửa</Button>
+              <Button size={"middle"} onClick={() => {dataShow=data[Number(record.Id)];setIsChangeInformation(!isChangeInformation)}}>Sửa</Button>
       ),
   },
   ];
 
+  const [data, setProducts] = useState([]);
+
+  // const data: DataType[] = []; // Assuming DataType is the type of your data
   useEffect(() => {
-  }, []);
-  //useSelector, useNavigate
+    const fetchData = async () => {
+      try {
+        var response = await axios.get("https://localhost:7030/Product/");
+        setProducts(response.data);
+        console.log(111, response)
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [data]); // Add data as a dependency if needed
 
   const NavBar0 = () => (
     <header className='navbar'>
