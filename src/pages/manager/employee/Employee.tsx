@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './styleEmployee.css'
 
+import { ReactComponent as IconEdit } from '../../../icon/btn-edit.svg'
+import { ReactComponent as IconDelete } from '../../../icon/btn-delete.svg'
+
 import { Account } from '../../component/account';
 import NavBar from '../../component/menubar';
 import { FilterBox } from '../../component/filterBox';
 
-import { Button, Table } from 'antd';
+import { Button, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { randomFill } from 'crypto';
 import EmployeeInformationPopupScreen from '../../component/popupEditEmployee';
@@ -86,8 +89,10 @@ export default function Employee() {
       key: 'action',
       width: '112px',
       render: (_, record) => (
-        <Button size={"middle"} onClick={() => { dataShow = data[Number(record.empId)]; setIsChangeInformation(!isChangeInformation) }}>Sửa</Button>
-      ),
+        <Space size="small">
+          <Button size={"middle"} onClick={() => { dataShow = data[Number(record.empId)]; setIsChangeInformation(!isChangeInformation) }}><IconEdit /></Button>
+          <Button size={"middle"} onClick={() => { console.log("Xóa : " + record.empId) }}><IconDelete /></Button>
+        </Space>),
     },
   ];
 

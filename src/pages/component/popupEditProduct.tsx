@@ -65,6 +65,8 @@ export default function ProductInformationPopupScreen({ isPopup, setPopup, data,
             <Form
                 form={form}
                 disabled={componentDisabled}
+                labelAlign="left"
+                labelCol={{ span: 6 }}
             >
                 <Row>
                     <Col span={24}>

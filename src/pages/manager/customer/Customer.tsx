@@ -12,11 +12,14 @@ import { ReactComponent as IconKhuyenmai } from '../../../icon/menu-khuyenmai.sv
 import { ReactComponent as IconBaocao } from '../../../icon/menu-baocao.svg'
 import { ReactComponent as IconLogout } from '../../../icon/logout.svg'
 
+import { ReactComponent as IconEdit } from '../../../icon/btn-edit.svg'
+import { ReactComponent as IconDelete } from '../../../icon/btn-delete.svg'
+
 import { Account } from '../../component/account';
 import NavBar from '../../component/menubar';
 import { FilterBox } from '../../component/filterBox';
 
-import { Button, Table } from 'antd';
+import { Button, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import CustomerInformationPopupScreen from '../../component/popupEditCustomer';
 
@@ -83,8 +86,10 @@ export default function Customer() {
       key: 'action',
       width: '112px',
       render: (_, record) => (
-        <Button size={"middle"} onClick={() => { dataShow = data[Number(record.cusId)]; setIsChangeInformation(!isChangeInformation) }}>Sửa</Button>
-      ),
+        <Space size="small">
+          <Button size={"middle"} onClick={() => { dataShow = data[Number(record.cusId)]; setIsChangeInformation(!isChangeInformation) }}><IconEdit /></Button>
+          <Button size={"middle"} onClick={() => { console.log("Xóa : " + record.cusId) }}><IconDelete /></Button>
+        </Space>),
     },
   ];
 
@@ -127,7 +132,7 @@ export default function Customer() {
         componentDisabled={componentDisabled}
         setComponentDisabled={setComponentDisabled}
       />
-       <div className='product-container'>
+      <div className='product-container'>
         <div className='filterField'>
           <FilterBox title={"Chi nhánh"} type={"store"} />
           <FilterBox title={"Giới tính"} type={"gender"} />
