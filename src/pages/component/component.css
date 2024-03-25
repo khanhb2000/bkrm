@@ -1,93 +1,177 @@
 .account-container {
-    display: flex;
-    align-items: center;
-    padding: 16px 16px;
-    cursor: pointer;
-    vertical-align: middle; 
-    /*background: rebeccapurple;*/
-    font-family: Helvetica;
-    font-weight: 300;
-    display: inline-flex;
-    display: flex;
-font-size: 16px;
-    gap: 5px;
-color: var(--Category-Text-Color, rgba(3, 2, 41, 0.50));
-font-family: Nunito;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-}  
+  display: flex;
+  align-items: center;
+  padding: 16px 16px;
+  cursor: pointer;
+  vertical-align: middle;
+  /*background: rebeccapurple;*/
+  font-family: Helvetica;
+  font-weight: 300;
+  display: inline-flex;
+  display: flex;
+  font-size: 16px;
+  gap: 5px;
+  color: var(--Category-Text-Color, rgba(3, 2, 41, 0.5));
+  font-family: Nunito;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 
 .infor {
-    padding: 16px 16px;
-    cursor: pointer;
-    vertical-align: middle;
-    display: flex;
-width: 100px;
-padding: 10px;
-gap: 10px; 
-display: flex;
-align-items: left;
-flex-direction: column;
-font-size: 16px;
+  padding: 16px 16px;
+  cursor: pointer;
+  vertical-align: middle;
+  display: flex;
+  width: 100px;
+  padding: 10px;
+  gap: 10px;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  font-size: 16px;
 }
 
-.navbar__item_active {
+.navbar__menu_active {
+  /* Auto layout */
 
-/* Auto layout */
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 15px;
-gap: 15px;
-
-width: 155.16px;
-height: 85px;
-
-background: linear-gradient(180deg, #605BFF 0%, rgba(255, 255, 255, 0) 43%);
-border-radius: 0px 5px 5px 0px;
-transform: rotate(-0.39deg);
-
-
+  background: linear-gradient(180deg, #605bff 0%, rgba(255, 255, 255, 0) 43%);
+  border-radius: 0px 15px 0px 0px;
+  transform: rotate(-0.39deg);
 }
 
-  
 .navbar {
-    display: flex;
-    align-items: center;
-    
-    /*background: rebeccapurple;*/
-    color: white;
-    font-family: Helvetica;
-    font-weight: 300;
-    display: inline-flex;
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-color: var(--Category-Text-Color, rgba(3, 2, 41, 0.50));
-font-family: Nunito;
-font-size: 15px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-}   
+  display: flex;
+  align-items: center;
+
+  /*background: rebeccapurple;*/
+  color: white;
+  font-family: Helvetica;
+  font-weight: 300;
+  display: inline-flex;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  color: var(--Category-Text-Color, rgba(3, 2, 41, 0.5));
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.navbar__menu {
+  width: 150px;
+  padding: 15px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.navbar__menu .menu-child {
+  position: absolute;
+  padding: 15px 0px;
+  z-index: 100;
+  top: 50px;
+  left: 0px;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px 0px #0000001A;
+  border-radius: 0px 0px 0px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.navbar__menu .menu-child .child-element {
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+  gap: 5px;
+}
+
+.navbar__menu .menu-child .child-element-active {
+  color: #28C2FF;
+  border-left: 5px solid #28C2FF;
+  box-sizing: border-box;
+}
 
 .navbar__title {
-    margin-right: auto;
-    font-size: 150%;
-    padding: 12px 16px;
+  margin-right: auto;
+  font-size: 150%;
+  padding: 12px 16px;
 }
 
 .navbar__item {
-    padding: 16px 16px;
-    cursor: pointer;
-    vertical-align: middle; 
-    display: flex;
-width: 150px;
-height: 85px;
-padding: 15px;
-align-items: center;
-gap: 10px; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+.ant-custom-input {
+  width: 250px;
+  height: 56.8px;
+  border-radius: 10px;
+  flex-direction: row-reverse;
+  border: 1px solid #28C2FF !important;
+  padding: 1em;
+}
+
+.ant-custom-input .ant-input {
+  font-size: 18px !important;
+  color: #000000 !important;
+  font-weight: 700;
+  font-family: "Nunito";
+}
+
+.ant-custom-input .ant-input::placeholder {
+  font-size: 18px !important;
+  color: #000000 !important;
+  font-weight: 700;
+  opacity: 0.5;
+  font-family: "Nunito";
+}
+
+.ant-custom-select {
+  width: 250px;
+  height: 56.8px;
+  border-radius: 10px;
+}
+
+.ant-select-selector {
+    border-radius: 10px !important;
+    border: 1px solid #28C2FF !important;
+    padding: 1em !important;
+}
+
+.ant-select-selection-placeholder {
+  font-size: 18px !important;
+  color: #000000 !important;
+  font-weight: 700;
+  opacity: 0.5;
+  font-family: "Nunito";
+}
+
+.ant-radio-group {
+  width: 100%;
+}
+
+.ant-radio-group .ant-space {
+  width: 100%;
+}
+
+.ant-radio-group .ant-space .ant-radio-wrapper {
+  width: 100%;
+}
+
+.ant-radio-group .ant-space .ant-radio-wrapper span:nth-child(2) {
+  flex-grow: 1;
+}
+
+.ant-radio-group .ant-space .ant-radio-wrapper span:nth-child(2) .anticon {
+  flex-grow: unset;
+}

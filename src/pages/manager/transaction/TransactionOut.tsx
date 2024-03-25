@@ -288,8 +288,8 @@ export default function Transaction() {
       />
       <div className="product-container">
         <div className="filterField">
-          <div className="title">Phiếu nhập kho</div>
-          <CustomInput placeholder="Theo mã nhập kho" />
+          <div className="title">Phiếu xuất kho</div>
+          <CustomInput placeholder="Theo mã xuất kho" />
           <FilterBox title={"Chi nhánh"} type={"store"} />
           <FilterBox title={"Thời gian"} type={"time"} />
           <FilterBox title={"Trạng thái"} type={"status"} />
@@ -313,7 +313,7 @@ export default function Transaction() {
         </div>
         <div className="product-list">
           <div className="header-action">
-            <Button icon={<EditOutlined />} className="custom-button">
+          <Button icon={<EditOutlined />} className="custom-button">
               Điều chỉnh
             </Button>
             <Button icon={<PlusCircleOutlined />} className="custom-button" onClick={() => setIsShowModal("create")}>
@@ -330,7 +330,7 @@ export default function Transaction() {
             <thead className="table-header">
               <th className="table-header-code">Mã nhập hàng</th>
               <th className="table-header-time">Thời gian</th>
-              <th className="table-header-trans">Nhà cung cấp</th>
+              <th className="table-header-trans">Đối tác</th>
               <th className="table-header-fee">Cần trả nhà cung cấp</th>
               <th className="table-header-status">Trạng thái</th>
               <th className="table-header-action"></th>
@@ -400,7 +400,7 @@ export default function Transaction() {
         <p>Bạn có chắc sẽ xoá nó không?</p>
       </Modal>
       <Modal
-        title={`Phiếu nhập kho${form.getFieldValue("code") ? ' - ' + form.getFieldValue("code") : ''}`}
+        title={`Phiếu xuất kho${form.getFieldValue("code") ? ' - ' + form.getFieldValue("code") : ''}`}
         open={isShowModal === "create" || isShowModal === "edit"}
         onOk={() => setIsShowModal(undefined)}
         onCancel={() => {setIsShowModal(undefined); form.resetFields()}}
@@ -413,28 +413,28 @@ export default function Transaction() {
       >
         <div className="modal-header">
           <div className="modal-info">Thông tin</div>
-          <div className="modal-desc">Nhập đến kho hiện tại</div>
+          <div className="modal-desc">Xuất từ kho tổng</div>
         </div>
         <hr className="modal-line" />
         <div className="modal-box">
           <Form form={form} onFinish={onFinish}>
             <Form.Item
               className="code"
-              label={"Mã nhập kho"}
+              label={"Mã xuất kho"}
               name={"code"}
             >
               <Input disabled />
             </Form.Item>
             <Form.Item
               className="time"
-              label={"Ngày nhập"}
+              label={"Ngày xuất"}
               name={"time"}
             >
               <Input disabled />
             </Form.Item>
             <Form.Item
               className="trans"
-              label={"Nhà cung cấp"}
+              label={"Dối tác"}
               name={"trans"}
               rules={[{ required: true }]}
             >
