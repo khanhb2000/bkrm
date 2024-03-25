@@ -79,6 +79,12 @@ interface IData {
   status: string;
 }
 
+interface IProduct {
+  code: string;
+  quantity: string;
+  name: string
+}
+
 const fakeData = [
   {
     code: "PN000038",
@@ -187,6 +193,29 @@ const fakeData = [
   },
 ];
 
+const listProductsFake = [
+  {
+    code: "SP000001",
+    quantity: "10",
+    name: "Mì gói Hảo Hảo"
+  },
+  {
+    code: "SP000005",
+    quantity: "13",
+    name: "Mì gói Indome"
+  },
+  {
+    code: "SP000015",
+    quantity: "10",
+    name: "Sữa Vinanilk..."
+  },
+  {
+    code: "SP000002",
+    quantity: "08",
+    name: "Bún khô Meizan V..."
+  }
+]
+
 export default function Transaction() {
   const columns: ColumnsType<DataType> = [
     {
@@ -239,13 +268,16 @@ export default function Transaction() {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
-
+  //call api set data nhập kho
   const [dataTrans, setDataTrans] = useState<IData[]>([]);
   const [page, setPage] = useState<number>(1);
   const size = 7;
 
   const [dataChoose, setDataChoose] = useState<IData>();
   const [isShowModal, setIsShowModal] = useState<string>();
+
+  //call api set data products on modal
+  const [listProduct, setListProduct] = useState<IProduct[]>(listProductsFake)
 
   useEffect(() => {
     setDataTrans(fakeData.slice((page - 1) * size, page * size));
@@ -311,7 +343,7 @@ export default function Transaction() {
             ]}
           />
         </div>
-        <div className="product-list">
+        <div className="product-list transaction-list">
           <div className="header-action">
             <Button icon={<EditOutlined />} className="custom-button">
               Điều chỉnh
@@ -416,6 +448,7 @@ export default function Transaction() {
           <div className="modal-desc">Nhập đến kho hiện tại</div>
         </div>
         <hr className="modal-line" />
+        <div className="modal-content">
         <div className="modal-box">
           <Form form={form} onFinish={onFinish}>
             <Form.Item
@@ -455,6 +488,25 @@ export default function Transaction() {
               <Input />
             </Form.Item>
           </Form>
+        </div>
+        <div className="modal-products">
+          <table>
+            <thead>
+              <th className="code">Mã sản phẩm</th>
+              <th className="quantity">Số lượng</th>
+              <th className="name">Tên sản phẩm</th>
+            </thead>
+            <tbody>
+              {listProduct && listProduct.length > 0 && listProduct.map((product, index) => (
+                <tr key={index}>
+                  <td className="code">{product.code}</td>
+                  <td className="quantity">{product.quantity}</td>
+                  <td className="name">{product.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         </div>
       </Modal>
     </div>

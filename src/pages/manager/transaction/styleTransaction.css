@@ -74,6 +74,9 @@ opacity: 0.5;
 
 .product-list{
     width:80%;
+}
+
+.transaction-list {
     padding: 1em 7em 1em 1em;
 }
 
@@ -90,7 +93,7 @@ opacity: 0.5;
     gap: 20px;
 }
 
-.custom-button {
+.transaction-list .custom-button {
     background: #28C2FF;
     color: #ffffff;
     width: 150px;
@@ -222,7 +225,7 @@ opacity: 0.5;
 }
 
 .modal-create-trans {
-    width: 800px !important;
+    width: 1000px !important;
 }
 
 .modal-create-trans .ant-modal-title {
@@ -252,9 +255,20 @@ opacity: 0.5;
     border-top: 1px dotted #000000;
 }
 
+.modal-create-trans .modal-content {
+    display: flex;
+    align-items: flex-start;
+}
+
 .modal-create-trans .modal-box {
     margin-top: 25px;
-    width: 500px;
+    width: 50%;
+    padding: 0px 15px;
+}
+
+.modal-create-trans .modal-products {
+    width: 50%;
+    padding: 0px 15px;
 }
 
 .modal-create-trans .ant-form-item label {
@@ -282,4 +296,13 @@ opacity: 0.5;
     height: 40px;
     background-color: #28C2FF;
     color: #ffffff;
+}
+
+.modal-create-trans .modal-products table {
+    width: 100%;
+}
+
+.modal-create-trans .modal-products table .code, .quantity, .name {
+    text-align: left;
+    padding: 10px;
 }
