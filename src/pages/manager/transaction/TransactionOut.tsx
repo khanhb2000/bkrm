@@ -35,7 +35,7 @@ import {
   UploadOutlined,
   PlusCircleOutlined,
   DeleteOutlined,
-  DownloadOutlined
+  DownloadOutlined,
 } from "@ant-design/icons";
 
 interface DataType {
@@ -268,7 +268,7 @@ export default function Transaction() {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
-  //call api set data nhập kho
+  //call api set data xuất kho
   const [dataTrans, setDataTrans] = useState<IData[]>([]);
   const [page, setPage] = useState<number>(1);
   const size = 7;
@@ -277,7 +277,7 @@ export default function Transaction() {
   const [isShowModal, setIsShowModal] = useState<string>();
 
   //call api set data products on modal
-  const [listProduct, setListProduct] = useState<IProduct[]>(listProductsFake)
+  const [listProduct, setListProduct] = useState<IProduct[]>(listProductsFake);
 
   useEffect(() => {
     setDataTrans(fakeData.slice((page - 1) * size, page * size));
@@ -320,8 +320,8 @@ export default function Transaction() {
       />
       <div className="product-container">
         <div className="filterField">
-          <div className="title">Phiếu nhập kho</div>
-          <CustomInput placeholder="Theo mã nhập kho" />
+          <div className="title">Phiếu xuất kho</div>
+          <CustomInput placeholder="Theo mã xuất kho" />
           <FilterBox title={"Chi nhánh"} type={"store"} />
           <FilterBox title={"Thời gian"} type={"time"} />
           <FilterBox title={"Trạng thái"} type={"status"} />
@@ -348,7 +348,11 @@ export default function Transaction() {
             <Button icon={<EditOutlined />} className="custom-button">
               Điều chỉnh
             </Button>
-            <Button icon={<PlusCircleOutlined />} className="custom-button" onClick={() => setIsShowModal("create")}>
+            <Button
+              icon={<PlusCircleOutlined />}
+              className="custom-button"
+              onClick={() => setIsShowModal("create")}
+            >
               Thêm mới
             </Button>
             <Button icon={<DownloadOutlined />} className="custom-button">
@@ -362,7 +366,7 @@ export default function Transaction() {
             <thead className="table-header">
               <th className="table-header-code">Mã nhập hàng</th>
               <th className="table-header-time">Thời gian</th>
-              <th className="table-header-trans">Nhà cung cấp</th>
+              <th className="table-header-trans">Đối tác</th>
               <th className="table-header-fee">Cần trả nhà cung cấp</th>
               <th className="table-header-status">Trạng thái</th>
               <th className="table-header-action"></th>
@@ -392,7 +396,7 @@ export default function Transaction() {
                           className="edit-button"
                           onClick={() => {
                             setIsShowModal("edit");
-                            form.setFieldsValue(tran)
+                            form.setFieldsValue(tran);
                           }}
                         >
                           Sửa
@@ -432,10 +436,15 @@ export default function Transaction() {
         <p>Bạn có chắc sẽ xoá nó không?</p>
       </Modal>
       <Modal
-        title={`Phiếu nhập kho${form.getFieldValue("code") ? ' - ' + form.getFieldValue("code") : ''}`}
+        title={`Phiếu xuất kho${
+          form.getFieldValue("code") ? " - " + form.getFieldValue("code") : ""
+        }`}
         open={isShowModal === "create" || isShowModal === "edit"}
         onOk={() => setIsShowModal(undefined)}
-        onCancel={() => {setIsShowModal(undefined); form.resetFields()}}
+        onCancel={() => {
+          setIsShowModal(undefined);
+          form.resetFields();
+        }}
         footer={(_, { OkBtn, CancelBtn }) => (
           <>
             <Button onClick={onFinish}>Lưu</Button>
@@ -445,68 +454,62 @@ export default function Transaction() {
       >
         <div className="modal-header">
           <div className="modal-info">Thông tin</div>
-          <div className="modal-desc">Nhập đến kho hiện tại</div>
+          <div className="modal-desc">Xuất từ kho tổng</div>
         </div>
         <hr className="modal-line" />
         <div className="modal-content">
-        <div className="modal-box">
-          <Form form={form} onFinish={onFinish}>
-            <Form.Item
-              className="code"
-              label={"Mã nhập kho"}
-              name={"code"}
-            >
-              <Input disabled />
-            </Form.Item>
-            <Form.Item
-              className="time"
-              label={"Ngày nhập"}
-              name={"time"}
-            >
-              <Input disabled />
-            </Form.Item>
-            <Form.Item
-              className="trans"
-              label={"Nhà cung cấp"}
-              name={"trans"}
-              rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              className="fee"
-              label={"Cần trả nhà cung cấp"}
-              name={"fee"}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              className="status"
-              label={"Trạng thái"}
-              name={"status"}
-            >
-              <Input />
-            </Form.Item>
-          </Form>
-        </div>
-        <div className="modal-products">
-          <table>
-            <thead>
-              <th className="code">Mã sản phẩm</th>
-              <th className="quantity">Số lượng</th>
-              <th className="name">Tên sản phẩm</th>
-            </thead>
-            <tbody>
-              {listProduct && listProduct.length > 0 && listProduct.map((product, index) => (
-                <tr key={index}>
-                  <td className="code">{product.code}</td>
-                  <td className="quantity">{product.quantity}</td>
-                  <td className="name">{product.name}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+          <div className="modal-box">
+            <Form form={form} onFinish={onFinish}>
+              <Form.Item className="code" label={"Mã xuất kho"} name={"code"}>
+                <Input disabled />
+              </Form.Item>
+              <Form.Item className="time" label={"Ngày xuất"} name={"time"}>
+                <Input disabled />
+              </Form.Item>
+              <Form.Item
+                className="trans"
+                label={"Đối tác"}
+                name={"trans"}
+                rules={[{ required: true }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                className="fee"
+                label={"Cần trả nhà cung cấp"}
+                name={"fee"}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                className="status"
+                label={"Trạng thái"}
+                name={"status"}
+              >
+                <Input />
+              </Form.Item>
+            </Form>
+          </div>
+          <div className="modal-products">
+            <table>
+              <thead>
+                <th className="code">Mã sản phẩm</th>
+                <th className="quantity">Số lượng</th>
+                <th className="name">Tên sản phẩm</th>
+              </thead>
+              <tbody>
+                {listProduct &&
+                  listProduct.length > 0 &&
+                  listProduct.map((product, index) => (
+                    <tr key={index}>
+                      <td className="code">{product.code}</td>
+                      <td className="quantity">{product.quantity}</td>
+                      <td className="name">{product.name}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Modal>
     </div>
