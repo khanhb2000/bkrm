@@ -12,7 +12,7 @@ import { FilterBox } from '../../component/filterBox';
 import { Button, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import ProductInformationPopupScreen from '../../component/popupEditProduct';
-import axios from 'axios';
+//import axios from 'axios';
 
 interface DataType {
   key: React.Key;
@@ -80,8 +80,8 @@ export default function Product() {
       width: '112px',
       render: (_, record) => (
         <Space size="small">
-          <Button size={"middle"} onClick={() => { dataShow = data[Number(record.productId)]; setIsChangeInformation(!isChangeInformation) }}><IconEdit /></Button>
-          <Button size={"middle"} onClick={() => { console.log("Xóa : " + record.productId) }}><IconDelete /></Button>
+          <Button size={"middle"} onClick={() => { dataShow = data[Number(record.Id)]; setIsChangeInformation(!isChangeInformation) }}><IconEdit /></Button>
+          <Button size={"middle"} onClick={() => { console.log("Xóa : " + record.Id) }}><IconDelete /></Button>
         </Space>),
   },
   ];

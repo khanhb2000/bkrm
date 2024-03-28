@@ -1,3 +1,7 @@
+.dashboard-body{
+    padding-top: 100px;
+}
+
 .account-container {
     display: flex;
     align-items: center;
