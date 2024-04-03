@@ -7,80 +7,169 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ReactComponent as Logo } from '../../icon/appLogo.svg'
 import { ReactComponent as IconTongquan } from '../../icon/menu-tongquan.svg'
 import { ReactComponent as IconHanghoa } from '../../icon/menu-hanghoa.svg'
+import { ReactComponent as IconKiemkho } from '../../icon/menu-kiemkho.svg'
+import { ReactComponent as IconDanhmuc } from '../../icon/menu-danhmuc.svg'
 import { ReactComponent as IconGiaodich } from '../../icon/menu-giaodich.svg'
+import { ReactComponent as IconNhaphang } from '../../icon/menu-nhaphang.svg'
+import { ReactComponent as IconXuathang } from '../../icon/menu-xuathang.svg'
 import { ReactComponent as IconDoitac } from '../../icon/menu-doitac.svg'
+import { ReactComponent as IconKhachhang } from '../../icon/menu-khachhang.svg'
+import { ReactComponent as IconNhacungcap } from '../../icon/menu-nhacungcap.svg'
 import { ReactComponent as IconNV } from '../../icon/menu-nhanvien.svg'
 import { ReactComponent as IconKhuyenmai } from '../../icon/menu-khuyenmai.svg'
 import { ReactComponent as IconBaocao } from '../../icon/menu-baocao.svg'
 import { ReactComponent as IconLogout } from '../../icon/logout.svg'
 
 import { Account } from './account';
+import { faDisplay } from '@fortawesome/free-solid-svg-icons';
 
-type menuState = [
+type menuItemState =
     {
         title: string;
-        icon: Component;
-        linkto: string;
+        icon: ReactNode | ReactElement;
+        path: string;
         status: boolean;
+        subNav?: {
+            title: string;
+            icon: ReactNode;
+            path: string;
+            status: boolean;
+        }[];
     }
-]
 
+type menuState =menuItemState[];/*
+    {
+        title: string;
+        icon: ReactNode | ReactElement;
+        path: string;
+        status: boolean;
+        subNav?: {
+            title: string;
+            icon: ReactNode;
+            path: string;
+            status: boolean;
+        }[];
+    }[]
+*/
 export default function NavBar() {
     const navigate = useNavigate();
-    const location = useLocation();  
+    const location = useLocation();
 
-    const menuList = [
+    const menuList: menuState = [
         {
             title: 'Tổng quan',
             icon: <IconTongquan />,
-            linkto: 'tongquan',
+            path: 'tongquan',
             status: location.pathname.includes('tongquan'),
         },
         {
             title: 'Hàng hóa',
             icon: <IconHanghoa />,
-            linkto: 'hanghoa/',
+            path: 'hanghoa/',
             status: location.pathname.includes('hanghoa'),
+            subNav: [
+                {
+                    title: 'Kiểm kho',
+                    icon: <IconKiemkho />,
+                    path: 'hanghoa/kiemkho',
+                    status: location.pathname.includes('kiemkho'),
+                },
+                {
+                    title: 'Danh mục',
+                    icon: <IconDanhmuc />,
+                    path: 'hanghoa/danhmuc',
+                    status: location.pathname.includes('danhmuc'),
+                },
+            ],
         },
         {
             title: 'Giao dịch',
             icon: <IconGiaodich />,
-            linkto: 'giaodich',
+            path: 'giaodich',
             status: location.pathname.includes('giaodich'),
+            subNav: [
+                {
+                    title: 'Nhập hàng',
+                    icon: <IconNhaphang />,
+                    path: 'giaodich/nhaphang',
+                    status: location.pathname.includes('nhaphang'),
+                },
+                {
+                    title: 'Xuất hàng',
+                    icon: <IconXuathang />,
+                    path: 'giaodich/xuathang',
+                    status: location.pathname.includes('xuathang'),
+                },
+            ],
         },
         {
             title: 'Đối tác',
             icon: <IconDoitac />,
-            linkto: 'doitac',
+            path: 'doitac',
             status: location.pathname.includes('doitac'),
+            subNav: [
+                {
+                    title: 'Khách hàng',
+                    icon: <IconKhachhang />,
+                    path: 'doitac/khachhang',
+                    status: location.pathname.includes('khachhang'),
+                },
+                {
+                    title: 'Nhà cung cấp',
+                    icon: <IconNhacungcap />,
+                    path: 'doitac/nhacungcap',
+                    status: location.pathname.includes('nhacungcap'),
+                },
+            ],
         },
         {
             title: 'Nhân viên',
             icon: <IconNV />,
-            linkto: 'nhanvien',
+            path: 'nhanvien',
             status: location.pathname.includes('nhanvien'),
         },
         {
             title: 'Khuyến mãi',
             icon: <IconKhuyenmai />,
-            linkto: 'khuyenmai',
+            path: 'khuyenmai',
             status: location.pathname.includes('khuyenmai'),
         },
         {
             title: 'Báo cáo',
             icon: <IconBaocao />,
-            linkto: 'baocao',
+            path: 'baocao',
             status: location.pathname.includes('baocao'),
         }
     ]
+        
+    const [nameShowSubmenubar, setNameShowSubmenubar] = useState("");
 
     return (
         <header className='navbar'>
             <div className='navbar__title navbar__item'><Logo /></div>
-            {menuList.map((item) =>
-                <div className={item.status? 'navbar__item_active' : 'navbar__item'} onClick={() => navigate(item.linkto)}>
-                    {item.icon} {item.title}
-                </div>
+            {menuList.map((item) => (
+                    <div className='navbar__submenu'>
+                    <div className={item.status ? 'navbar__item_active' : 'navbar__item'} 
+                    onClick={() => {
+                        nameShowSubmenubar==item.path? 
+                            setNameShowSubmenubar("") : setNameShowSubmenubar(item.path);
+                        item.subNav?? navigate(item.path);
+                    }}>
+                        {item.icon} {item.title}
+                    </div>
+                    {item.path==nameShowSubmenubar?
+                        <div className='navbar__submenubar'>
+                        {item.subNav?.map((subItem) => (
+                            <div className={subItem.status ? 'navbar__submenuitem_active' : 'navbar__submenuitem'} 
+                            onClick={() => {
+                            navigate(subItem.path)
+                            }}>
+                                {subItem.icon} {subItem.title}
+                            </div>))
+                        }</div>
+                        :<></>}
+                    </div>
+            )
             )}
             {/*<Account/>*/}
             <div className='account-container'>
@@ -90,11 +179,11 @@ export default function NavBar() {
                 <div className='infor'>
                     {/*<h5>Tuan Nguyen</h5>
 <h6>Free Account</h6>*/}
-          <div>Tuan Nguyen</div>
-          <div>Free Account</div>
-        </div>
-        <IconLogout />
-      </div>
-    </header>
-  );
+                    <div>Tuan Nguyen</div>
+                    <div>Free Account</div>
+                </div>
+                <IconLogout />
+            </div>
+        </header>
+    );
 }
