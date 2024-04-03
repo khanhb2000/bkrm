@@ -56,7 +56,7 @@ for (let i = 0; i < 46; i++) {
   });
 }*/
 
-export default function Product() {
+export default function ImportGoods() {
   const columns: ColumnsType<DataType> = [
     {
       title: 'Mã sản phẩm',
@@ -87,6 +87,7 @@ export default function Product() {
   ];
 
   const [data, setProducts] = useState([]);
+  const [importData, setImportData] = useState<DataType[]>([emptydata]);
 
   // const data: DataType[] = []; // Assuming DataType is the type of your data
   useEffect(() => {
@@ -133,6 +134,12 @@ export default function Product() {
   };
   const hasSelected = selectedRowKeys.length > 0;
 
+  const handleTableRowClick = (record: DataType) => {
+    importData.push(record);
+    setImportData(importData);
+    console.log(importData);
+}
+
   return (
     /*
     <React.Fragment>
@@ -154,19 +161,25 @@ export default function Product() {
   />*/}
       <div className='product-container'>
       <div className='filterField'>
-        <FilterBox title={"Chi nhánh"} type={"store"} />
-        <FilterBox title={"Tổng bán"} type={"amount"} />
-        <FilterBox title={"Số lượng"} type={"num"} />
-      </div>
-      <div className='product-list'>
-        <Button type='primary' onClick={() => {dataShow=emptydata;setIsChangeInformation(!isChangeInformation)}} style={{ backgroundColor: "#465d65" }}>Thêm mới</Button>
       <div style={{ marginBottom: 16 }}>
         <span style={{ marginLeft: 8 }}>
           {hasSelected ? `Đã chọn ${selectedRowKeys.length} sản phẩm` : ''}
         </span>
       </div>
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+      <Table 
+      rowSelection={rowSelection} 
+      columns={columns} 
+      dataSource={data}
+      onRow={(record) => ({
+        onClick: () => handleTableRowClick(record),
+    })}
+     />
     </div>
+      </div>
+      <div className='product-list'>
+Phieeus nhaapj hangf
+<Table rowSelection={rowSelection} columns={columns} dataSource={[...importData]} />
+
     </div>
     </div>
     //</React.Fragment>

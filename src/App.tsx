@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, redirect, Navigate } from "react-router-d
 import Login from "./pages/login/Login";
 import Manager from './pages/manager/Main';
 import Product from './pages/manager/product/Product';
+import ImportGoods from './pages/manager/product/ImportGoods';
 import Employee from './pages/manager/employee/Employee';
 import Dashboard from './pages/manager/dashboard/Dashboard';
 import Transaction from './pages/manager/transaction/Transaction';
@@ -22,6 +23,7 @@ function App() {
           <Route path="login/*" element={<Login />} />
           <Route path="quan-ly/*" element={<Manager />} >
             <Route path="hanghoa/*" element={<Product />} />
+            <Route path="nhap-hang/*" element={<ImportGoods />} />
             <Route path="nhanvien/*" element={<Employee />} />
             <Route path="giaodich/*" element={<Transaction />} />
             <Route path="doitac/*" element={<Customer />} />

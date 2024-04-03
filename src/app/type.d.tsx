@@ -42,12 +42,15 @@ export type MenuState = {
 };*/
 
 export type ProductState = {
-  productId: string;
-  productName: string;
-  giavon: string;
-  giaban: string;
-  slnhap: number;
-  tonkho: number;
+  "id": 0,
+  "name": "string",
+  "categoryId": 0,
+  "category": {
+    "id": 0,
+    "name": "string"
+  },
+  "description": "string",
+  "status": true
 };
 
 export type ProductListState = ProductState[];
