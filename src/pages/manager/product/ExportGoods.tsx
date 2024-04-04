@@ -9,11 +9,12 @@ import { Account } from '../../component/account';
 import  NavBar  from '../../component/menubar';
 import { FilterBox } from '../../component/filterBox';
 
-import { Button, Space, Table } from 'antd';
+import { Button, Form, Input, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import ProductInformationPopupScreen from '../../component/popupEditProduct';
 import api_links from '../../../app/api_links';
 import fetch_Api from '../../../app/api_fetch';
+import { GoodsReceipt, GoodsReceiptDetails } from '../../../app/type.d';
 //import axios from 'axios';
 
 interface DataType {
@@ -40,6 +41,12 @@ const emptydata:DataType ={
   "description": "string",
   "status": true
 }
+interface ExportDataType {
+  info: GoodsReceipt,
+  list: GoodsReceiptDetails,
+  idWareHouse: string,
+  }
+
 let dataShow:DataType=emptydata;
 
 /*
@@ -56,7 +63,7 @@ for (let i = 0; i < 46; i++) {
   });
 }*/
 
-export default function ImportGoods() {
+export default function ExportGoods() {
   const columns: ColumnsType<DataType> = [
     {
       title: 'Mã sản phẩm',
@@ -86,6 +93,7 @@ export default function ImportGoods() {
   },
   ];
 
+  const [form] = Form.useForm();
   const [data, setProducts] = useState([]);
   const [importData, setImportData] = useState<DataType[]>([emptydata]);
 
@@ -102,6 +110,7 @@ export default function ImportGoods() {
         })
 }, []);
   //useSelector, useNavigate
+  const [formValues, setFormValue] = useState();
 
   const [isChangeInformation, setIsChangeInformation] = useState(false);
   const [componentDisabled, setComponentDisabled] = useState<boolean>();
@@ -139,9 +148,25 @@ export default function ImportGoods() {
     setImportData(importData);
     console.log(importData);
 }
+const postGoodsIssue = () => {
+  const api_post = api_links.goodsIssue.createNew;
+  let newReceipt= //:ExportDataType
+  {
+    info: formValues,
+    list: importData,
+    idWareHouse:"0",
+  }
+  api_post.data=newReceipt;
+  console.log(api_post);
+  return fetch_Api(api_post)
+}
+
+const onFinish = () => {
+  setFormValue(form.getFieldsValue());
+  console.log(form.getFieldsValue());
+};
 
   return (
-    /*
     <React.Fragment>
           <ProductInformationPopupScreen
                     isPopup={isChangeInformation}
@@ -150,7 +175,7 @@ export default function ImportGoods() {
                     componentDisabled={componentDisabled}
                     setComponentDisabled={setComponentDisabled}
                 />
-*/
+
     <div className='dashboard-container'>
       {/*<ProductInformationPopupScreen
                     isPopup={isChangeInformation}
@@ -161,6 +186,47 @@ export default function ImportGoods() {
   />*/}
       <div className='product-container'>
       <div className='filterField'>
+      <Form form={form} onFinish={onFinish}>
+            <Form.Item
+              className="code"
+              label={"Mã nhập kho"}
+              name={"code"}
+            >
+              <Input/>
+            </Form.Item>
+            <Form.Item
+              className="time"
+              label={"Ngày nhập"}
+              name={"time"}
+            >
+              <Input/>
+            </Form.Item>
+            <Form.Item
+              className="trans"
+              label={"Nhà cung cấp"}
+              name={"trans"}
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              className="fee"
+              label={"Cần trả nhà cung cấp"}
+              name={"fee"}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              className="status"
+              label={"Trạng thái"}
+              name={"status"}
+            >
+              <Input />
+            </Form.Item>
+          </Form>
+        </div>  
+
+        <div className='filterField'>
       <div style={{ marginBottom: 16 }}>
         <span style={{ marginLeft: 8 }}>
           {hasSelected ? `Đã chọn ${selectedRowKeys.length} sản phẩm` : ''}
@@ -175,14 +241,21 @@ export default function ImportGoods() {
     })}
      />
     </div>
-      </div>
+      
       <div className='product-list'>
-Phieeus nhaapj hangf
+Đơn nhập hàng
 <Table rowSelection={rowSelection} columns={columns} dataSource={[...importData]} />
+<Button type='primary' onClick={() => 
+  {
+    postGoodsIssue()
+  }} 
+  style={{ backgroundColor: "#465d65" }}>
+    Thêm mới</Button>
+</div>
 
     </div>
     </div>
-    //</React.Fragment>
+    </React.Fragment>
   );
 
 }

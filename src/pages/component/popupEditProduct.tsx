@@ -9,6 +9,9 @@ import { PlusOutlined } from "@ant-design/icons";
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import { useParams } from "react-router-dom";
 //import axios from "axios";
+import { ProductState } from "../../app/type.d"
+import api_links from "../../app/api_links";
+import fetch_Api from "../../app/api_fetch";
 
 interface DataType {
     key: React.Key;
@@ -18,9 +21,9 @@ interface DataType {
     giaban: string;
     slnhap: number;
     tonkho: number;
-  };
+};
 
-export default function ProductInformationPopupScreen({ isPopup, setPopup, data, componentDisabled, setComponentDisabled }: { isPopup?: boolean, setPopup?: any, data?: DataType, componentDisabled?: boolean, setComponentDisabled?: any }) {
+export default function ProductInformationPopupScreen({ isPopup, setPopup, data, componentDisabled, setComponentDisabled, type }: { isPopup?: boolean, setPopup?: any, data?: ProductState, componentDisabled?: boolean, setComponentDisabled?: any, type?: string }) {
     const { id } = useParams();
     // watch value in form
     const [form] = Form.useForm();
@@ -37,15 +40,26 @@ export default function ProductInformationPopupScreen({ isPopup, setPopup, data,
         setPopup(false);
     }
 
-    
+
 
     const handleOk = () => {
-        
-        form
-            .validateFields()
-            .then((values) => {
-                console.log(values);
-            })
+        type == "edit" ?
+            form
+                .validateFields()
+                .then((values) => {
+                    const api_put = api_links.product.edit;
+                    api_put.url=api_put.url+data?.id;
+                    api_put.data=values;
+                    return fetch_Api(api_put)
+                })
+            : 
+            form
+                .validateFields()
+                .then((values) => {
+                    const api_post = api_links.product.createNew;
+                    api_post.data=values;
+                    return fetch_Api(api_post)
+                })
     }
 
     return (
@@ -81,15 +95,15 @@ export default function ProductInformationPopupScreen({ isPopup, setPopup, data,
                     </Col>
                     <Col span={24}>
                         <Form.Item
-                            label="Tồn"
-                            name="tonkho"
+                            label="Phân loại"
+                            name="phanloai"
                             //rules={[{ required: true, message: 'Please input your phone number!' }]}
-                            initialValue={data?.tonkho}
+                            initialValue={data?.category?.name}
                         >
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col span={24}>
+                    {/*<Col span={24}>
                         <Form.Item
                             label="SL nhập"
                             name="slnhap"
@@ -120,7 +134,7 @@ export default function ProductInformationPopupScreen({ isPopup, setPopup, data,
                         >
                             <Input />
                         </Form.Item>
-                    </Col>
+                    </Col>*/}
                 </Row>
             </Form>
         </Modal >

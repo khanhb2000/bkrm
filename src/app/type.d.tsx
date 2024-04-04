@@ -42,15 +42,15 @@ export type MenuState = {
 };*/
 
 export type ProductState = {
-  "id": 0,
-  "name": "string",
-  "categoryId": 0,
+  "id": string,
+  "name": string,
+  "categoryId": string,
   "category": {
-    "id": 0,
-    "name": "string"
+    "id": string,
+    "name": string
   },
-  "description": "string",
-  "status": true
+  "description": string,
+  "status": boolean,
 };
 
 export type ProductListState = ProductState[];
@@ -76,3 +76,19 @@ export type CustomerState = {
 };
 
 export type CustomerListState = CustomerState[];
+
+export type GoodsReceipt = {
+  id: string;
+  exportDate: string;
+  partnerId: string;
+  receiptStatus: string;
+  parnersId: string;
+};
+
+export type GoodsReceiptDetails = [{
+  id: string;
+  goodsReceiptId: string;
+  productId: string;
+  priceUnit: string;
+  quantity: string;
+}];

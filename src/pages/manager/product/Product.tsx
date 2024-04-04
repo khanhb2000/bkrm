@@ -90,7 +90,7 @@ export default function Product() {
 
   // const data: DataType[] = []; // Assuming DataType is the type of your data
   useEffect(() => {
-    getAllBooking()
+    getAllProducts()
         .then(res => {
             //setAllData(res.data);
             setProducts(res.data);
@@ -117,7 +117,7 @@ export default function Product() {
     }, 1000);
   };
 
-  const getAllBooking = () => {
+  const getAllProducts = () => {
     const api_link = api_links.product.getAll;
     return fetch_Api(api_link)
 }
@@ -134,7 +134,7 @@ export default function Product() {
   const hasSelected = selectedRowKeys.length > 0;
 
   return (
-    /*
+    
     <React.Fragment>
           <ProductInformationPopupScreen
                     isPopup={isChangeInformation}
@@ -142,16 +142,18 @@ export default function Product() {
                     data={dataShow}
                     componentDisabled={componentDisabled}
                     setComponentDisabled={setComponentDisabled}
+                    type="create"
                 />
-*/
+
     <div className='dashboard-container'>
-      {/*<ProductInformationPopupScreen
+      {<ProductInformationPopupScreen
                     isPopup={isChangeInformation}
                     setPopup={setIsChangeInformation}
                     data={dataShow}
                     componentDisabled={componentDisabled}
                     setComponentDisabled={setComponentDisabled}
-  />*/}
+                    type="edit"
+  />}
       <div className='product-container'>
       <div className='filterField'>
         <FilterBox title={"Chi nhánh"} type={"store"} />
@@ -169,7 +171,7 @@ export default function Product() {
     </div>
     </div>
     </div>
-    //</React.Fragment>
+    </React.Fragment>
   );
 
 }

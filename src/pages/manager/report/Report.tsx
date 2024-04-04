@@ -33,34 +33,43 @@ import moment from "moment";
 
 interface DataType {
   key: React.Key;
-  Id: string;
-  name: string;
-  giavon: string;
-  giaban: string;
-  slnhap: number;
-  tonkho: number;
-}
-const emptydata: DataType = {
+    "id": string;
+    "name": string;
+    "categoryId": string;
+    "category": {
+      "id": string;
+      "name": string;
+    },
+    "description": string;
+    "status": boolean;
+  }
+const emptydata:DataType ={
   key: "",
-  Id: "",
-  name: "",
-  giavon: "",
-  giaban: "",
-  slnhap: 0,
-  tonkho: 0,
-};
+  "id": "0",
+  "name": "",
+  "categoryId": "0",
+  "category": {
+    "id": "0",
+    "name": ""
+  },
+  "description": "string",
+  "status": true
+}
 let dataShow: DataType = emptydata;
 
 const data: DataType[] = [];
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
-    Id: String(i),
+    id: String(i),
     name: "Sản phẩm " + i,
-    giavon: "100.000",
-    giaban: "500.000",
-    slnhap: 50,
-    tonkho: 20,
+    "categoryId": "0",
+    "category": {
+      "id": "0",
+      "name": ""
+    },
+    "description": "string",
+    "status": true
   });
 }
 
@@ -165,7 +174,7 @@ export default function Report() {
         <Button
           size={"middle"}
           onClick={() => {
-            dataShow = data[Number(record.Id)];
+            dataShow = data[Number(record.id)];
             setIsChangeInformation(!isChangeInformation);
           }}
         >
